@@ -51,7 +51,7 @@ export const Education = () => {
                   Achievements
                 </h4>
                 <ul className="space-y-2 text-gray-300">
-                  <li>• CGPA: 7.59/10</li>
+                  <li>• CGPA: 7.64/10</li>
                   <li>• Published Reseach paper</li>
                   <li>•  Solved 200+ DSA problems</li>
                 </ul>
