@@ -33,7 +33,11 @@ export const Hero = () => {
               {/* Gradient text */}
               <span className="bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
                 <Typewriter
-                  words={["Nikhil Kanojia"]}
+                  words={[
+                    "Nikhil Kanojia",
+                    "Full Stack Devloper",
+                    "Tech Enthusiast",
+                  ]}
                   loop
                   typeSpeed={90}
                 />
@@ -45,7 +49,6 @@ export const Hero = () => {
               </span>
             </span>
           </h1>
-
           <p className="text-xl sm:text-2xl text-gray-300 mb-4 font-light">
             Open For Work
           </p>
