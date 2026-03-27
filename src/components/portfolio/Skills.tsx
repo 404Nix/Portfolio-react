@@ -8,17 +8,33 @@ const skillCategories = [
   {
     title: "Frontend Development",
     color: "from-purple-400 to-pink-500",
-    skills: ["React", "HTML5", "CSS3", "Tailwind CSS"],
+    skills: [
+    "React.js",
+    "JavaScript (ES6+)",
+    "Tailwind CSS",
+    "Responsive UI",
+    "Dynamic UI",
+    "Form Handling",
+    "Redux Toolkit",
+  ],
   },
   {
     title: "Backend Development",
     color: "from-green-400 to-teal-500",
-    skills: ["Node.js", "Express.js", "RESTful APIs"],
+    skills: [
+    "Node.js",
+    "Express.js",
+    "MongoDB",
+    "Mongoose",
+    "REST API",
+    "CRUD Operations",
+    "Authentication"
+  ],
   },
   {
     title: "Databases & Tools",
     color: "from-orange-400 to-red-500",
-    skills: ["MongoDB", "MySQL", "Git Github", "Jira"],
+    skills: ["MongoDB", "MySQL", "Git Github", "Jira", "Postman", "VS Code"],
   },
 ];
 

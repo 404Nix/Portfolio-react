@@ -7,6 +7,7 @@ import { Projects } from "@/components/portfolio/Projects";
 import { Skills } from "@/components/portfolio/Skills";
 import { Education } from "@/components/portfolio/Education";
 import { Contact } from "@/components/portfolio/Contact";
+import { Footer } from "@/components/portfolio/Footer";
 
 const Index = () => {
   const [activeSection, setActiveSection] = useState("home");
@@ -44,6 +45,7 @@ const Index = () => {
         <Education />
         <About />
         <Contact />
+        <Footer />
       </main>
     </div>
   );
