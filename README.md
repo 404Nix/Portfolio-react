@@ -1,1 +1,1 @@
-[Live Here](portfolio-react-jet-delta.vercel.app)
+Live Here = portfolio-react-jet-delta.vercel.app
