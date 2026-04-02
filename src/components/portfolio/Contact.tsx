@@ -27,8 +27,7 @@ export const Contact = () => {
       return;
     } else if (terminalInput.toLowerCase() === 'socials') {
       newHistory.push("- GitHub: github.com/404Nix");
-      newHistory.push("- LinkedIn: linkedin.com/in/nikhilkanojia");
-      newHistory.push("- Twitter: twitter.com/nix_dev");
+      newHistory.push("- LinkedIn: linkedin.com/in/nikhil-kanojia69");
     } else if (terminalInput.toLowerCase().startsWith('send ')) {
       newHistory.push("Sending message to server...");
       setTimeout(() => {
@@ -78,7 +77,7 @@ export const Contact = () => {
                 </a>
                 <a href="tel:+918766291686" className="inline-flex items-center gap-3 text-lg font-mono text-primary hover:text-cyan-300 transition-colors">
                   <span className="w-5 h-5 flex items-center justify-center font-bold">☎</span>
-                  +91 8766291686
+                  +91 876629XXXX
                 </a>
               </div>
             </div>
