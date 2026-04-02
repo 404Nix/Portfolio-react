@@ -1,11 +1,9 @@
-
 import { useEffect, useState } from "react";
 import { Navbar } from "@/components/portfolio/Navbar";
 import { Hero } from "@/components/portfolio/Hero";
 import { About } from "@/components/portfolio/About";
 import { Projects } from "@/components/portfolio/Projects";
 import { Skills } from "@/components/portfolio/Skills";
-import { Education } from "@/components/portfolio/Education";
 import { Contact } from "@/components/portfolio/Contact";
 import { Footer } from "@/components/portfolio/Footer";
 
@@ -14,8 +12,14 @@ const Index = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ["home", "skills", "projects", "education", "about", "contact"];
-      const scrollPosition = window.scrollY + 100;
+      const sections = ["home", "about", "skills", "projects", "contact"];
+      // Add early check for home
+      if (window.scrollY < 100) {
+        setActiveSection("home");
+        return;
+      }
+      
+      const scrollPosition = window.scrollY + window.innerHeight / 3;
 
       for (const section of sections) {
         const element = document.getElementById(section);
@@ -36,17 +40,16 @@ const Index = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-900 text-gray-100">
+    <div className="min-h-screen bg-[#0a0a0a] text-gray-100 selection:bg-primary/30 selection:text-white font-sans">
       <Navbar activeSection={activeSection} />
       <main>
         <Hero />
-        <Projects />
-        <Skills />
-        <Education />
         <About />
+        <Skills />
+        <Projects />
         <Contact />
-        <Footer />
       </main>
+      <Footer />
     </div>
   );
 };

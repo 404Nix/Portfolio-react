@@ -1,192 +1,111 @@
-import { ExternalLink, Github } from "lucide-react";
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardHeader,
-    CardTitle,
-} from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import fnd from "@/assets/Fake_news_detection.png";
-import gaming_dashboard from "@/assets/gaming_dashboard.png";
-import expense_tracker from "@/assets/Expense_tracker.png";
-import CollaB from "@/assets/CollaB.png";
-
-const projects = [
-    {
-        title: "CollaB",
-        description:
-            "Collab is a real-time collaboration platform enabling organization-based teamwork, live updates, and role-based access. Built with Next.js, Convex, and Clerk, with a modern UI and planned n8n workflow automation.",
-        technologies: [
-            "Next.js",
-            "TypeScript",
-            "Convex",
-            "Clerk",
-            "Tailwind CSS",
-        ],
-        github: "https://github.com/404Nix/realtime-collaboration-board",
-        demo: "https://github.com/404Nix/realtime-collaboration-board",
-        image: CollaB,
-        status: "In Progress",
-    },
-    {
-        title: "Gaming Analytics Dashboad",
-        description:
-            "Built a full-stack dashboard to analyze player stats, game outcomes, rewards, and usage trends.",
-        technologies: [
-            "ReactJS",
-            "Vite",
-            "Node.js",
-            "Express.js",
-            "Tailwind CSS",
-            "MongoDB",
-            "Socket.IO",
-        ],
-        github: "https://github.com/404Nix/Gaming-Analytics-Dashboard",
-        demo: "https://gaming-analytics-dashboard-l2st.vercel.app/",
-        image: gaming_dashboard,
-        status: "Completed",
-    },
-    {
-        title: "Fake News Detection System",
-        description:
-            "Developed a fake news classifier using pre-trained BERT embeddings and fine-tuning.",
-        technologies: ["Python", "Tensorflow", "BERT", "NLP"],
-        github: "https://github.com/404Nix/FakeNewsDetection",
-        demo: "https://github.com/404Nix/FakeNewsDetection",
-        image: fnd,
-        status: "Completed",
-    },
-    {
-        title: "Expense Tracker",
-        description:
-            "Built a personal finance management app with real-time budget alerts, category analytics, and a responsive dark-themed dashboard.",
-        technologies: [
-            "MongoDB",
-            "Express.js",
-            "React.js",
-            "Node.js",
-            "Redux Toolkit",
-            "Tailwind CSS",
-        ],
-        github: "https://github.com/404Nix/ExpenseTracker",
-        demo: "https://github.com/404Nix/ExpenseTracker",
-        image: expense_tracker,
-        status: "Completed",
-    },
-];
+import { motion } from "framer-motion";
+import { ExternalLink, Github, FolderGit2 } from "lucide-react";
 
 export const Projects = () => {
-    return (
-        <section
-            id="projects"
-            className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-800/30"
+  const projects = [
+    {
+      id: 1,
+      title: "CollaB - Real-Time Collaboration Board",
+      description: "A real-time collaboration platform enabling organization-based teamwork, live updates, and role-based access. Built with Next.js, Convex, and Clerk with planned n8n workflow automation.",
+      tags: ["Next.js", "TypeScript", "Convex", "Clerk", "Tailwind CSS"],
+      github: "https://github.com/404Nix/realtime-collaboration-board",
+      live: "https://github.com/404Nix/realtime-collaboration-board",
+      featured: true,
+    },
+    {
+      id: 2,
+      title: "Gaming Analytics Dashboard",
+      description: "Built a full-stack dashboard to analyze player stats, game outcomes, rewards, and usage trends with real-time Socket.IO feeds and JWT-secured access.",
+      tags: ["React.js", "Vite", "Node.js", "Express.js", "MongoDB", "Socket.IO", "Tailwind CSS"],
+      github: "https://github.com/404Nix/Gaming-Analytics-Dashboard",
+      live: "https://gaming-analytics-dashboard-l2st.vercel.app/",
+      featured: true,
+    },
+    {
+      id: 3,
+      title: "Fake News Detection System",
+      description: "Developed a fake news classifier pipeline mapping text using pre-trained BERT embeddings and NLP fine-tuning techniques.",
+      tags: ["Python", "TensorFlow", "BERT", "NLP"],
+      github: "https://github.com/404Nix/FakeNewsDetection",
+      live: "https://github.com/404Nix/FakeNewsDetection",
+      featured: false,
+    },
+    {
+      id: 4,
+      title: "Expense Tracker",
+      description: "Built a personal finance management app with real-time budget alerts, category analytics, and a responsive dark-themed dashboard using Redux Toolkit.",
+      tags: ["MongoDB", "Express.js", "React.js", "Node.js", "Redux Toolkit", "Tailwind CSS"],
+      github: "https://github.com/404Nix/ExpenseTracker",
+      live: "https://expense-tracker-five-dusky-30.vercel.app/",
+      featured: false,
+    }
+  ];
+
+  return (
+    <section id="projects" className="py-24 relative bg-[#0a0a0a]">
+      <div className="container mx-auto px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.5 }}
+          className="mb-16"
         >
-            <div className="max-w-7xl mx-auto">
-                <div className="text-center mb-16">
-                    <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-                        <span className="bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">
-                            Featured Projects
-                        </span>
-                    </h2>
-                    <div className="w-20 h-1 bg-gradient-to-r from-cyan-400 to-purple-500 mx-auto rounded-full mb-4" />
-                    <p className="text-gray-400 max-w-2xl mx-auto">
-                        Here are some of my recent projects that showcase my
-                        skills in full-stack development, problem-solving, and
-                        modern web technologies.
-                    </p>
+          <h2 className="text-3xl md:text-4xl font-bold font-['Space_Grotesk'] text-white flex items-center gap-4">
+            <span className="text-primary font-mono text-xl">03.</span>
+            Featured_Work
+            <div className="h-[1px] flex-1 bg-white/10 ml-4 max-w-sm"></div>
+          </h2>
+        </motion.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {projects.map((project, idx) => (
+            <motion.div
+              key={project.id}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, delay: idx * 0.1 }}
+              whileHover={{ y: -10 }}
+              className={`group glass rounded-xl p-6 border border-white/5 relative overflow-hidden flex flex-col ${
+                project.featured ? "md:col-span-2 lg:col-span-2" : "col-span-1"
+              }`}
+            >
+              <div className="absolute inset-0 bg-gradient-to-t from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+              
+              <div className="flex justify-between items-start mb-6">
+                <FolderGit2 className="w-10 h-10 text-primary" />
+                <div className="flex gap-4">
+                  <a href={project.github} className="text-gray-400 hover:text-white transition-colors">
+                    <Github className="w-5 h-5" />
+                  </a>
+                  <a href={project.live} className="text-gray-400 hover:text-primary transition-colors">
+                    <ExternalLink className="w-5 h-5" />
+                  </a>
                 </div>
+              </div>
 
-                <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
-                    {projects.map((project, index) => (
-                        <Card
-                            key={index}
-                            className="bg-gray-800/50 border-gray-700 hover:border-cyan-400/50 transition-all duration-300 group hover:transform hover:scale-105"
-                        >
-                            <div className="relative overflow-hidden rounded-t-lg">
-                                <img
-                                    src={project.image}
-                                    alt={project.title}
-                                    className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110"
-                                />
-                                <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent" />
-                            </div>
+              <h3 className="text-2xl font-bold font-['Space_Grotesk'] text-white mb-3 group-hover:text-primary transition-colors">
+                {project.title}
+              </h3>
+              
+              <p className="text-gray-400 text-sm leading-relaxed mb-6 flex-1">
+                {project.description}
+              </p>
 
-                            <CardHeader>
-                                <CardTitle className="text-white group-hover:text-cyan-400 transition-colors duration-300">
-                                    {project.title}
-                                </CardTitle>
-                                <CardDescription className="text-gray-400">
-                                    {project.description}
-                                </CardDescription>
-                            </CardHeader>
-
-                            <CardContent className="space-y-4">
-                                <div className="flex flex-wrap gap-2">
-                                    {project.technologies.map(
-                                        (tech, techIndex) => (
-                                            <span
-                                                key={techIndex}
-                                                className="px-3 py-1 text-xs bg-gradient-to-r from-cyan-500/20 to-purple-500/20 text-cyan-300 rounded-full border border-cyan-500/30"
-                                            >
-                                                {tech}
-                                            </span>
-                                        ),
-                                    )}
-                                </div>
-
-                                <div className="flex gap-3 pt-4">
-                                    <Button
-                                        size="sm"
-                                        variant="outline"
-                                        className="border-cyan-400 text-cyan-400 hover:bg-cyan-400 bg-transparent hover:text-gray-900 transition-all duration-300"
-                                        asChild
-                                    >
-                                        <a
-                                            href={project.github}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                        >
-                                            <Github className="mr-2 h-4 w-4" />
-                                            Code
-                                        </a>
-                                    </Button>
-
-                                    <Button
-                                        size="sm"
-                                        className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 transition-all duration-300"
-                                        asChild
-                                    >
-                                        <a
-                                            href={project.demo}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                        >
-                                            <ExternalLink className="mr-2 h-4 w-4" />
-                                            Demo
-                                        </a>
-                                    </Button>
-                                    <Button
-                                        disabled
-                                        size="sm"
-                                        asChild
-                                        className={`transition-all duration-300 ml-auto ${
-                                            project.status === "Completed"
-                                                ? "bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700"
-                                                : project.status ===
-                                                    "In Progress"
-                                                  ? "bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-600 hover:to-amber-700"
-                                                  : "bg-gray-400"
-                                        }`}
-                                    >
-                                        <p>{project.status}</p>
-                                    </Button>
-                                </div>
-                            </CardContent>
-                        </Card>
-                    ))}
-                </div>
-            </div>
-        </section>
-    );
+              <div className="flex flex-wrap gap-2 mt-auto">
+                {project.tags.map((tag, tIdx) => (
+                  <span key={tIdx} className="text-xs font-mono text-secondary">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
 };
+
+export default Projects;
