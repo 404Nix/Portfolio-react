@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Portfolio favicon">
+  <defs>
+    <linearGradient id="bg" x1="10" y1="8" x2="56" y2="58" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0f172a" />
+      <stop offset="1" stop-color="#050505" />
+    </linearGradient>
+    <linearGradient id="accent" x1="12" y1="14" x2="52" y2="50" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#00ffff" />
+      <stop offset="1" stop-color="#bf00ff" />
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="16" fill="url(#bg)" />
+  <path d="M16 18h8l8 12 8-12h8L32 36 16 18Z" fill="url(#accent)" />
+  <path d="M18 46h6l4-8h12l4 8h6L36 22h-8L18 46Zm13.5-14L32 28l.5 4h-1Z" fill="#e5e7eb" opacity="0.92" />
+  <circle cx="50" cy="14" r="3" fill="#00ffff" opacity="0.9" />
+</svg>
