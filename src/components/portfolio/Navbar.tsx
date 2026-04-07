@@ -9,9 +9,10 @@ interface NavbarProps {
 const navItems = [
   { id: "home", label: "00.Home" },
   { id: "about", label: "01.About" },
-  { id: "skills", label: "02.Skills" },
-  { id: "projects", label: "03.Work" },
-  { id: "contact", label: "04.Contact" },
+  { id: "github", label: "02.GitHub" },
+  { id: "skills", label: "03.Skills" },
+  { id: "projects", label: "04.Work" },
+  { id: "contact", label: "05.Contact" },
 ];
 
 export const Navbar = ({ activeSection }: NavbarProps) => {

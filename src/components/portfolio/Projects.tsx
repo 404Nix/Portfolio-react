@@ -52,7 +52,7 @@ export const Projects = () => {
           className="mb-16"
         >
           <h2 className="text-3xl md:text-4xl font-bold font-['Space_Grotesk'] text-white flex items-center gap-4">
-            <span className="text-primary font-mono text-xl">03.</span>
+            <span className="text-primary font-mono text-xl">04.</span>
             Featured_Work
             <div className="h-[1px] flex-1 bg-white/10 ml-4 max-w-sm"></div>
           </h2>

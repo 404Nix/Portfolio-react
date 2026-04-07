@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Navbar } from "@/components/portfolio/Navbar";
 import { Hero } from "@/components/portfolio/Hero";
 import { About } from "@/components/portfolio/About";
+import { GitHubActivity } from "@/components/portfolio/GitHubActivity";
 import { Projects } from "@/components/portfolio/Projects";
 import { Skills } from "@/components/portfolio/Skills";
 import { Contact } from "@/components/portfolio/Contact";
@@ -12,7 +13,7 @@ const Index = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ["home", "about", "skills", "projects", "contact"];
+      const sections = ["home", "about", "github", "skills", "projects", "contact"];
       // Add early check for home
       if (window.scrollY < 100) {
         setActiveSection("home");
@@ -45,6 +46,7 @@ const Index = () => {
       <main>
         <Hero />
         <About />
+        <GitHubActivity />
         <Skills />
         <Projects />
         <Contact />

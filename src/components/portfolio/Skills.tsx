@@ -67,7 +67,7 @@ export const Skills = () => {
         >
           <h2 className="text-3xl md:text-4xl font-bold font-['Space_Grotesk'] text-white flex items-center justify-end gap-4 w-full">
             <div className="h-[1px] flex-1 bg-white/10 mr-4 max-w-sm hidden md:block"></div>
-            <span className="text-primary font-mono text-xl">02.</span>
+            <span className="text-primary font-mono text-xl">03.</span>
             Tech_Arsenal
           </h2>
           <p className="text-gray-400 mt-4 max-w-xl">Technologies and tools I use to build robust digital solutions.</p>
