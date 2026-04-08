@@ -5,11 +5,11 @@ export const Projects = () => {
   const projects = [
     {
       id: 1,
-      title: "CollaB - Real-Time Collaboration Board",
-      description: "A real-time collaboration platform enabling organization-based teamwork, live updates, and role-based access. Built with Next.js, Convex, and Clerk with planned n8n workflow automation.",
-      tags: ["Next.js", "TypeScript", "Convex", "Clerk", "Tailwind CSS"],
-      github: "https://github.com/404Nix/realtime-collaboration-board",
-      live: "https://github.com/404Nix/realtime-collaboration-board",
+      title: "Vault404 — Secure Password Manager",
+      description: "Built and deployed a production-ready password manager with AES encryption, JWT authentication, and a Dockerized architecture on Azure Container Apps with custom domain and optimized workflows.",
+      tags: ["Node.js", "Express.js", "React", "MongoDB", "Docker", "Azure"],
+      github: "https://github.com/404Nix/Vault404-PasswordManager",
+      live: "https://vault404.app",
       featured: true,
     },
     {
@@ -67,12 +67,11 @@ export const Projects = () => {
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.5, delay: idx * 0.1 }}
               whileHover={{ y: -10 }}
-              className={`group glass rounded-xl p-6 border border-white/5 relative overflow-hidden flex flex-col ${
-                project.featured ? "md:col-span-2 lg:col-span-2" : "col-span-1"
-              }`}
+              className={`group glass rounded-xl p-6 border border-white/5 relative overflow-hidden flex flex-col ${project.featured ? "md:col-span-2 lg:col-span-2" : "col-span-1"
+                }`}
             >
               <div className="absolute inset-0 bg-gradient-to-t from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
-              
+
               <div className="flex justify-between items-start mb-6">
                 <FolderGit2 className="w-10 h-10 text-primary" />
                 <div className="flex gap-4">
@@ -88,7 +87,7 @@ export const Projects = () => {
               <h3 className="text-2xl font-bold font-['Space_Grotesk'] text-white mb-3 group-hover:text-primary transition-colors">
                 {project.title}
               </h3>
-              
+
               <p className="text-gray-400 text-sm leading-relaxed mb-6 flex-1">
                 {project.description}
               </p>
