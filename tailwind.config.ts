@@ -21,6 +21,8 @@ export default {
 		extend: {
 			fontFamily: {
 				sans: ['Poppins', 'sans-serif'],
+				syne: ['Syne', 'sans-serif'],
+				mono: ['Space Mono', 'monospace'],
 			},
 			colors: {
 				border: 'hsl(var(--border))',
