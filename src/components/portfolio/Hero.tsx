@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Typewriter } from "react-simple-typewriter";
-import { ArrowRight, Terminal } from "lucide-react";
+import { ArrowRight, Terminal, Download } from "lucide-react";
 
 export const Hero = () => {
   return (
@@ -74,10 +74,13 @@ export const Hero = () => {
             <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
           </a>
           <a
-            href="#contact"
+            href="https://drive.google.com/file/d/1f5L1Q-73bTeoQwzqmZzVa6kPfGc3Q76K/view?usp=sharing"
+            target="_blank"
+            rel="noopener noreferrer"
             className="group inline-flex items-center justify-center gap-2 px-8 py-3.5 text-sm font-medium tracking-wide text-white bg-transparent border border-white/20 rounded-md transition-all hover:bg-white/5 backdrop-blur-sm"
           >
-            Contact Me
+            Resume
+            <Download size={18} className="translate-y-0 group-hover:translate-y-0.5 transition-transform" />
           </a>
         </motion.div>
       </div>
