@@ -39,7 +39,7 @@ export const Projects = () => {
       ],
       tags: ["Python", "TensorFlow", "BERT", "NLP"],
       github: "https://github.com/404Nix/FakeNewsDetection",
-      live: "https://github.com/404Nix/FakeNewsDetection",
+      live: "",
       featured: false,
     },
     {
@@ -96,17 +96,23 @@ export const Projects = () => {
                 <span className="px-2.5 py-1 text-[10px] font-bold font-mono tracking-widest uppercase bg-secondary/15 text-secondary border border-secondary/30 rounded-sm">
                   {project.featured ? "Featured" : "Project"}
                 </span>
-                <span className="w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_8px_#00ffff] animate-pulse" />
-                <span className="text-[10px] font-mono tracking-widest uppercase text-primary">
-                  Live
-                </span>
+                {project.live && (
+                  <>
+                    <span className="w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_8px_#00ffff] animate-pulse" />
+                    <span className="text-[10px] font-mono tracking-widest uppercase text-primary">
+                      Live
+                    </span>
+                  </>
+                )}
                 <div className="ml-auto flex gap-4">
                   <a href={project.github} className="text-gray-400 hover:text-white transition-colors">
                     <Github className="w-5 h-5" />
                   </a>
-                  <a href={project.live} className="text-gray-400 hover:text-primary transition-colors">
-                    <ExternalLink className="w-5 h-5" />
-                  </a>
+                  {project.live && (
+                    <a href={project.live} className="text-gray-400 hover:text-primary transition-colors">
+                      <ExternalLink className="w-5 h-5" />
+                    </a>
+                  )}
                 </div>
               </div>
 
@@ -115,10 +121,12 @@ export const Projects = () => {
                 {project.title.split('—')[0]}<span className="text-secondary">{project.title.includes('—') ? " — " + project.title.split('—')[1] : ""}</span>
               </h3>
               
-              <a href={project.live} target="_blank" rel="noopener" className="inline-flex items-center gap-1.5 text-[11px] font-mono text-primary opacity-80 hover:opacity-100 transition-opacity mb-6">
-                <ExternalLink className="w-3 h-3" />
-                {new URL(project.live).hostname}
-              </a>
+              {project.live && (
+                <a href={project.live} target="_blank" rel="noopener" className="inline-flex items-center gap-1.5 text-[11px] font-mono text-primary opacity-80 hover:opacity-100 transition-opacity mb-6">
+                  <ExternalLink className="w-3 h-3" />
+                  {new URL(project.live).hostname}
+                </a>
+              )}
 
               {/* Divider */}
               <div className="w-full h-[1px] bg-gradient-to-r from-secondary/50 via-primary/30 to-transparent mb-6" />
