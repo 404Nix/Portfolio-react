@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
 import { Typewriter } from "react-simple-typewriter";
 import { ArrowRight, Terminal, Download } from "lucide-react";
+import { CharBackground } from "./CharBackground";
+
 
 export const Hero = () => {
   return (
@@ -10,6 +12,9 @@ export const Hero = () => {
 
       {/* Subtle glow orb */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary/20 rounded-full blur-[120px] opacity-50"></div>
+
+      <CharBackground />
+
 
       <div className="container relative z-10 mx-auto px-6 flex flex-col items-center text-center">
         <motion.div
