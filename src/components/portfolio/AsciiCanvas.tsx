@@ -207,7 +207,7 @@ const AsciiCanvas = ({
             onPointerMove={(e) => updatePointerPosition(e.clientX, e.clientY)}
             onPointerLeave={resetMouse}
             className="cursor-crosshair select-none"
-            style={{ width, height, display: 'block' }}
+            style={{ width: '100%', height: 'auto', maxWidth: width, display: 'block' }}
         />
     );
 };

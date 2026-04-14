@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { motion } from "framer-motion";
 import { Terminal as TerminalIcon } from "lucide-react";
 import AsciiCanvas from "./AsciiCanvas";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const COMMAND_LIST = [
   { name: "help", desc: "List all available commands" },
@@ -32,6 +33,7 @@ const padString = (str: string, length: number) => {
 };
 
 export const Contact = () => {
+  const isMobile = useIsMobile();
   const [terminalInput, setTerminalInput] = useState("");
   const [terminalHistory, setTerminalHistory] = useState<string[]>([]);
   const [isBooted, setIsBooted] = useState(false);
@@ -203,11 +205,11 @@ export const Contact = () => {
           >
             <AsciiCanvas 
               text="NIX"
-              width={500} 
-              height={400} 
-              fontSize={8} 
-              disturbRadius={100} 
-              disturbStrength={35} 
+              width={isMobile ? 350 : 500} 
+              height={isMobile ? 300 : 400} 
+              fontSize={isMobile ? 7 : 8} 
+              disturbRadius={isMobile ? 80 : 100} 
+              disturbStrength={isMobile ? 30 : 35} 
             />
           </motion.div>
 
