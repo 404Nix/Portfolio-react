@@ -1,43 +1,177 @@
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Mail, Github, Linkedin, Twitter, Terminal as TerminalIcon, Send } from "lucide-react";
+import { useState, useEffect, useRef, useCallback } from "react";
+import { motion } from "framer-motion";
+import { Terminal as TerminalIcon } from "lucide-react";
+import AsciiCanvas from "./AsciiCanvas";
+
+const COMMAND_LIST = [
+  { name: "help", desc: "List all available commands" },
+  { name: "about", desc: "Digital profile summary" },
+  { name: "skills", desc: "View technical arsenal" },
+  { name: "contact", desc: "Display contact methods" },
+  { name: "socials", desc: "Social media links" },
+  { name: "ls", desc: "List virtual system files" },
+  { name: "cat [file]", desc: "Show content of a file" },
+  { name: "send [msg]", desc: "Direct message to server" },
+  { name: "whoami", desc: "Current protocol identification" },
+  { name: "date", desc: "Display system date" },
+  { name: "clear", desc: "Flush terminal history" },
+];
+
+const FILES: Record<string, string> = {
+  "readme.md": "# Nix Communication Protocol\nThis is a secure terminal for reaching Nikhil Kanojia.",
+  "intro.txt": "I'm a Full Stack Developer specialized in MERN stack and real-time systems.",
+  "resume.pdf": "[BINARY_DATA] - Download available via 'resume' command.",
+  "manifesto.log": "Building the future, one commit at a time.",
+};
+
+// Safe padding helper for wider browser compatibility
+const padString = (str: string, length: number) => {
+  let s = str || "";
+  while (s.length < length) s += " ";
+  return s;
+};
 
 export const Contact = () => {
-  const [isTerminalMode, setIsTerminalMode] = useState(false);
   const [terminalInput, setTerminalInput] = useState("");
-  const [terminalHistory, setTerminalHistory] = useState([
-    "Welcome to the Nix communication protocol.",
-    "Type 'help' for available commands or 'send [message]' to contact.",
-  ]);
+  const [terminalHistory, setTerminalHistory] = useState<string[]>([]);
+  const [isBooted, setIsBooted] = useState(false);
+  const terminalRef = useRef<HTMLDivElement>(null);
+  const isMounted = useRef(false);
 
-  const handleTerminalSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!terminalInput.trim()) return;
+  // Boot sequence using recursive setTimeout for better control
+  useEffect(() => {
+    isMounted.current = true;
+    const bootSequence = [
+      "INITIALIZING NIX_OS v4.0.4...",
+      "LOADING KERNEL MODULES... DONE",
+      "ESTABLISHING SECURE PROTOCOL... SSL_ENABLED",
+      "WELCOME TO NIX TERMINAL INTERFACE.",
+      "Type 'help' for available commands.",
+      "----------------------------------------",
+    ];
 
-    const newHistory = [...terminalHistory, `> ${terminalInput}`];
+    let current = 0;
+    let timerId: NodeJS.Timeout;
 
-    if (terminalInput.toLowerCase() === 'help') {
-      newHistory.push("Available commands:");
-      newHistory.push("  send [msg]  - Send a message directly to Nix");
-      newHistory.push("  clear       - Clear terminal history");
-      newHistory.push("  socials     - List social media links");
-    } else if (terminalInput.toLowerCase() === 'clear') {
-      setTerminalHistory(["Terminal cleared."]);
-      setTerminalInput("");
-      return;
-    } else if (terminalInput.toLowerCase() === 'socials') {
-      newHistory.push("- GitHub: github.com/404Nix");
-      newHistory.push("- LinkedIn: linkedin.com/in/nikhil-kanojia69");
-    } else if (terminalInput.toLowerCase().startsWith('send ')) {
-      newHistory.push("Sending message to server...");
-      setTimeout(() => {
-        setTerminalHistory(prev => [...prev, "MESSAGE DELIVERED SUCCESSFULLY. Returning payload [HTTP 200 OK]"]);
-      }, 1000);
-    } else {
-      newHistory.push(`Command not found: ${terminalInput}`);
+    const runBoot = () => {
+      if (!isMounted.current) return;
+      if (current < bootSequence.length) {
+        setTerminalHistory(prev => [...prev, bootSequence[current]]);
+        current++;
+        timerId = setTimeout(runBoot, 150);
+      } else {
+        setIsBooted(true);
+      }
+    };
+
+    runBoot();
+
+    return () => {
+      isMounted.current = false;
+      clearTimeout(timerId);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (terminalRef.current) {
+      terminalRef.current.scrollTop = terminalRef.current.scrollHeight;
+    }
+  }, [terminalHistory]);
+
+  const handleCommand = useCallback((input: string) => {
+    const trimmedInput = (input || "").trim().toLowerCase();
+    const [cmd, ...args] = trimmedInput.split(" ");
+    const output: string[] = [`> ${input}`];
+
+    switch (cmd) {
+      case "help":
+        output.push("Available Commands:");
+        COMMAND_LIST.forEach(c => {
+          output.push(`  ${padString(c.name, 12)} - ${c.desc}`);
+        });
+        break;
+
+      case "about":
+        output.push("Digital Profile: Nikhil Kanojia (Nix)");
+        output.push("Title: Full Stack Developer");
+        output.push("Focus: Scalable backend architecture & Interactive frontends.");
+        break;
+
+      case "skills":
+        output.push("Technical Arsenal:");
+        output.push("• Languages: Java, JavaScript, Python, SQL");
+        output.push("• Frontend: React, Next.js, Redux, Tailwind");
+        output.push("• Backend: Node.js, Express, Socket.io");
+        output.push("• Databases: MongoDB, MySQL");
+        break;
+
+      case "contact":
+        output.push("Communication Channels:");
+        output.push("• Email: nikhilkanojia693@gmail.com");
+        output.push("• Mobile: +91 8766291686");
+        break;
+
+      case "socials":
+        output.push("Connected Nodes:");
+        output.push("• GitHub: github.com/404Nix");
+        output.push("• LinkedIn: linkedin.com/in/nikhil-kanojia69");
+        break;
+
+      case "ls":
+        output.push("Directory: /home/guest/docs");
+        output.push(Object.keys(FILES).join("   "));
+        break;
+
+      case "cat":
+        const fileName = args[0];
+        if (fileName && FILES[fileName]) {
+          output.push(FILES[fileName]);
+        } else {
+          output.push(`cat: ${fileName || 'unspecified'}: No such file or directory`);
+        }
+        break;
+
+      case "whoami":
+        output.push("Nikhil Kanojia — Full Stack Developer & Tech Enthusiast.");
+        break;
+
+      case "date":
+        output.push(new Date().toString());
+        break;
+
+      case "clear":
+        setTerminalHistory(["Terminal cleared.", "Type 'help' for commands."]);
+        return;
+
+      case "send":
+        const msg = args.join(" ");
+        if (msg) {
+          output.push("Package encryption... DONE");
+          output.push("Transmitting payload...");
+          setTimeout(() => {
+            if (isMounted.current) {
+               setTerminalHistory(prev => [...prev, "MESSAGE DELIVERED SUCCESSFULLY. Status: 200 OK"]);
+            }
+          }, 1000);
+        } else {
+          output.push("Usage: send [message]");
+        }
+        break;
+
+      case "":
+        break;
+
+      default:
+        output.push(`zsh: command not found: ${cmd}`);
     }
 
-    setTerminalHistory(newHistory);
+    setTerminalHistory(prev => [...prev, ...output]);
+  }, []);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!terminalInput.trim()) return;
+    handleCommand(terminalInput);
     setTerminalInput("");
   };
 
@@ -56,126 +190,99 @@ export const Contact = () => {
             <span className="text-primary font-mono text-xl">05.</span>
             Initiate_Contact
           </h2>
-          <p className="text-gray-400 mt-4 max-w-xl">My inbox is always open. Whether you have a question or just want to say hi, I'll try my best to get back to you!</p>
+          <p className="text-gray-400 mt-4 max-w-xl">Use the secure terminal below to communicate or browse my status.</p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Socials / Direct Email */}
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          {/* Left: ASCII Art */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="flex flex-col justify-center space-y-8"
+            className="flex justify-center lg:justify-end"
           >
-            <div className="space-y-4">
-              <h3 className="text-2xl font-bold text-white mb-2">Connect</h3>
-              <p className="text-gray-400">Feel free to reach out via email or connect with me on social media.</p>
-              <div className="flex flex-col gap-3">
-                <a href="mailto:nikhilkanojia693@gmail.com" className="inline-flex items-center gap-3 text-lg font-mono text-primary hover:text-cyan-300 transition-colors">
-                  <Mail className="w-5 h-5" />
-                  nikhilkanojia693@gmail.com
-                </a>
-                <a href="tel:+918766291686" className="inline-flex items-center gap-3 text-lg font-mono text-primary hover:text-cyan-300 transition-colors">
-                  <span className="w-5 h-5 flex items-center justify-center font-bold">☎</span>
-                  +91 876629XXXX
-                </a>
-              </div>
-            </div>
-
-            <div className="flex gap-4">
-              <a href="https://github.com/404Nix" className="p-3 glass rounded-full hover:bg-primary/20 hover:text-primary text-gray-400 transition-all">
-                <Github className="w-6 h-6" />
-              </a>
-              <a href="https://linkedin.com/in/nikhil-kanojia69" className="p-3 glass rounded-full hover:bg-secondary/20 hover:text-secondary text-gray-400 transition-all">
-                <Linkedin className="w-6 h-6" />
-              </a>
-            </div>
-
-            <button
-              onClick={() => setIsTerminalMode(!isTerminalMode)}
-              className="mt-8 flex items-center gap-2 w-fit px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-md text-sm text-gray-300 font-mono transition-colors"
-            >
-              <TerminalIcon className="w-4 h-4" />
-              {isTerminalMode ? "Switch to Standard Form" : "Switch to Terminal Mode"}
-            </button>
+            <AsciiCanvas 
+              text="NIX"
+              width={500} 
+              height={400} 
+              fontSize={8} 
+              disturbRadius={100} 
+              disturbStrength={35} 
+            />
           </motion.div>
 
-          {/* Form / Terminal Interface */}
+          {/* Right: Terminal Interface */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="relative"
+            className="w-full relative"
           >
-            <div className="absolute inset-0 bg-primary/5 blur-3xl rounded-full"></div>
+            <div className="absolute inset-0 bg-primary/5 blur-3xl rounded-full pointer-events-none"></div>
+            <div className="relative glass rounded-xl border border-white/10 shadow-2xl overflow-hidden">
+              {/* Terminal Header */}
+              <div className="bg-[#1a1a1a] px-4 py-2 border-b border-white/5 flex items-center justify-between">
+                <div className="flex gap-2">
+                  <div className="w-3 h-3 rounded-full bg-red-500/50"></div>
+                  <div className="w-3 h-3 rounded-full bg-yellow-500/50"></div>
+                  <div className="w-3 h-3 rounded-full bg-green-500/50"></div>
+                </div>
+                <div className="flex items-center gap-2 text-gray-500 text-xs font-mono">
+                  <TerminalIcon className="w-3 h-3" />
+                  nix_os — 80x24
+                </div>
+                <div className="w-12"></div>
+              </div>
 
-            <div className="relative glass rounded-xl p-8 border border-white/10 shadow-2xl h-[450px]">
-              <AnimatePresence mode="wait">
-                {!isTerminalMode ? (
-                  <motion.form
-                    key="standard-form"
-                    initial={{ opacity: 0, rotateX: 90 }}
-                    animate={{ opacity: 1, rotateX: 0 }}
-                    exit={{ opacity: 0, rotateX: -90 }}
-                    transition={{ duration: 0.4 }}
-                    className="flex flex-col h-full space-y-4"
-                  >
-                    <div>
-                      <label className="block text-sm font-medium text-gray-400 mb-1">Name</label>
-                      <input type="text" className="w-full bg-black/50 border border-white/10 rounded px-4 py-2.5 text-white focus:outline-none focus:border-primary transition-colors" placeholder="John Doe" />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-400 mb-1">Email</label>
-                      <input type="email" className="w-full bg-black/50 border border-white/10 rounded px-4 py-2.5 text-white focus:outline-none focus:border-primary transition-colors" placeholder="john@example.com" />
-                    </div>
-                    <div className="flex-1 min-h-[120px]">
-                      <label className="block text-sm font-medium text-gray-400 mb-1">Message</label>
-                      <textarea className="w-full h-[calc(100%-28px)] resize-none bg-black/50 border border-white/10 rounded px-4 py-2.5 text-white focus:outline-none focus:border-primary transition-colors" placeholder="Let's build something..."></textarea>
-                    </div>
-                    <button type="button" className="w-full py-3 bg-white/10 hover:bg-primary/20 text-white font-medium rounded border border-white/5 hover:border-primary/50 transition-all flex justify-center items-center gap-2 group">
-                      Send Message
-                      <Send className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                    </button>
-                  </motion.form>
-                ) : (
-                  <motion.div
-                    key="terminal-form"
-                    initial={{ opacity: 0, rotateX: 90 }}
-                    animate={{ opacity: 1, rotateX: 0 }}
-                    exit={{ opacity: 0, rotateX: -90 }}
-                    transition={{ duration: 0.4 }}
-                    className="flex flex-col h-full font-mono text-sm"
-                  >
-                    <div className="flex items-center gap-2 pb-4 border-b border-white/10 mb-4">
-                      <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                      <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-                      <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                      <span className="text-gray-500 ml-2">guest@nix404: ~/contact</span>
-                    </div>
-
-                    <div className="flex-1 overflow-y-auto space-y-2 mb-4 scrollbar-thin scrollbar-thumb-white/10 text-gray-300 pr-2">
-                      {terminalHistory.map((line, idx) => (
-                        <div key={idx} className={`${line.startsWith('>') ? 'text-primary' : ''}`}>
-                          {line}
-                        </div>
-                      ))}
-                    </div>
-
-                    <form onSubmit={handleTerminalSubmit} className="flex items-center gap-2 pt-4 border-t border-white/10">
-                      <span className="text-primary">{'>'}</span>
+              {/* Terminal Body */}
+              <div 
+                ref={terminalRef}
+                className="h-[400px] overflow-y-auto p-6 font-mono text-sm scrollbar-thin scrollbar-thumb-white/10"
+              >
+                <div className="space-y-1">
+                  {Array.isArray(terminalHistory) && terminalHistory.map((line, idx) => {
+                    if (typeof line !== 'string') return null;
+                    return (
+                      <div 
+                        key={idx} 
+                        className={
+                          line.startsWith('>') ? 'text-primary' : 
+                          line.includes('SUCCESS') ? 'text-green-400' :
+                          line.includes('error') ? 'text-red-400' :
+                          'text-gray-300'
+                        }
+                        style={{ whiteSpace: 'pre-wrap' }}
+                      >
+                        {line}
+                      </div>
+                    );
+                  })}
+                  
+                  {isBooted && (
+                    <form onSubmit={handleSubmit} className="flex items-center gap-2 pt-2">
+                      <span className="text-primary">nix@portfolio:~$</span>
                       <input
                         type="text"
                         value={terminalInput}
                         onChange={(e) => setTerminalInput(e.target.value)}
-                        className="flex-1 bg-transparent border-none outline-none text-white font-mono"
-                        autoFocus
+                        className="flex-1 bg-transparent border-none outline-none text-white focus:ring-0 p-0"
                       />
                     </form>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+                  )}
+                </div>
+              </div>
+              
+              {/* CRT Overlay Effect */}
+              <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.1)_50%),linear-gradient(90deg,rgba(255,0,0,0.02),rgba(0,255,0,0.01),rgba(0,0,255,0.02))] z-10 bg-[length:100%_2px,3px_100%]"></div>
             </div>
           </motion.div>
+        </div>
+        
+        {/* Quick Links Footer */}
+        <div className="mt-16 flex justify-center gap-8 border-t border-white/5 pt-8">
+          <a href="mailto:nikhilkanojia693@gmail.com" className="text-gray-500 hover:text-primary transition-colors text-sm font-mono uppercase tracking-widest">Email</a>
+          <a href="https://github.com/404Nix" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-primary transition-colors text-sm font-mono uppercase tracking-widest">Github</a>
+          <a href="https://linkedin.com/in/nikhil-kanojia69" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-primary transition-colors text-sm font-mono uppercase tracking-widest">Linkedin</a>
         </div>
       </div>
     </section>
