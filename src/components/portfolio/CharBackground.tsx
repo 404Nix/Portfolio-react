@@ -123,8 +123,9 @@ export const CharBackground: React.FC = () => {
         const dy = particleViewportY - mouse.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
 
-        if (dist < repulsionRadius) {
+        if (!isMobile && dist < repulsionRadius) {
           const force = (repulsionRadius - dist) / repulsionRadius;
+
           // Apply repulsion in canvas space
           p.x += (dx / dist) * force * 8;
           p.y += (dy / dist) * force * 8;
