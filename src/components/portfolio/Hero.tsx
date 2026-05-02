@@ -79,7 +79,7 @@ export const Hero = () => {
             <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
           </a>
           <a
-            href="https://drive.google.com/file/d/1f5L1Q-73bTeoQwzqmZzVa6kPfGc3Q76K/view?usp=sharing"
+            href="https://drive.google.com/file/d/1GXNmV79k2y7rxm97OygwFETLuxg1mil1/view?usp=sharing"
             target="_blank"
             rel="noopener noreferrer"
             className="group inline-flex items-center justify-center gap-2 px-8 py-3.5 text-sm font-medium tracking-wide text-white bg-transparent border border-white/20 rounded-md transition-all hover:bg-white/5 backdrop-blur-sm"
